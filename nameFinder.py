@@ -1,16 +1,17 @@
 emailLocation = 'emailAddresses'
 nameLocation = 'allNames'
 def main(first, second, year):
-	with open(emailLocation) as f: all_emails = [x.strip('\n') for x in f if x != '\n']
-	matchingEmails = list(all_emails)
+	with open(emailLocation) as f: emails_names = [x.strip('\n').split(',') for x in f]
+	all_emails = [x[0] for x in emails_names]
+	matching_emails = list(all_emails)
 	if first != '*':
-		matchingEmails = [x for x in matchingEmails if x[0] == first]
+		matching_emails = [x for x in matching_emails if x[0] == first]
 	if second != '*':
-		matchingEmails = [x for x in matchingEmails if x[1] == second]
+		matching_emails = [x for x in matching_emails if x[1] == second]
 	if year != '*':
-		matchingEmails = [x for x in matchingEmails if x[len(x)-2:] == year]
-	# return matchingEmails
-
+		matching_emails = [x for x in matching_emails if x[len(x)-2:] == year]
+	for i in matching_emails:
+		print i, emails_names[all_emails.index(i)][1]
 
 if __name__ == '__main__':
-	print main('*','k','*')
+	main('*','k','*')
