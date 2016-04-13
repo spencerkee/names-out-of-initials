@@ -33,23 +33,25 @@ def main(first, second, year):
 	if any(x > 1 for x in [len(first), len(second)]) or len(year) > 2:
 		sys.exit('Input term too large')
 
-	with open(emailLocation) as f: emails_names = [x.strip('\n').split(',') for x in f]
-	all_emails = [x[0] for x in emails_names]
-	matching_emails = list(all_emails)
+	#uid_names contains data in the form 'uid, name'
+	with open(formatted_data_location) as f: uid_names = [x.strip('\n').split(',') for x in f]
+	all_uid = [x[0] for x in uid_names]
+	matching_uid = list(all_uid)
+	#reduce the possible uid for every criterea
 	if first != '':
-		matching_emails = [x for x in matching_emails if x[0] == first]
+		matching_uid = [x for x in matching_uid if x[0] == first]
 	if second != '':
-		matching_emails = [x for x in matching_emails if x[1] == second]
+		matching_uid = [x for x in matching_uid if x[1] == second]
 	if year != '':
-		matching_emails = [x for x in matching_emails if x[len(x)-2:] == year]
+		matching_uid = [x for x in matching_uid if x[len(x)-2:] == year]
 	
-	if len(matching_emails) == 0:
+	if len(matching_uid) == 0:
 		sys.exit('No match')
 	else:
-		for i in matching_emails:
-			print i, emails_names[all_emails.index(i)][1]
+		for i in matching_uid:
+			print i, uid_names[all_uid.index(i)][1]
 
 if __name__ == '__main__':
-	emailLocation = 'emailAddresses'
-	write_ldap_data('ldap_data', emailLocation)
+	formatted_data_location = 'emailAddresses'
+	write_ldap_data('ldap_data', formatted_data_location)
 	main('a','f','')
