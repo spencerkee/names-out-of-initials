@@ -1,2 +1,2 @@
 # names-out-of-initials
-With a list of first initial + last name + year formatted university emails, return possible names
+Return possible names using initials and entry year for university email addresses
